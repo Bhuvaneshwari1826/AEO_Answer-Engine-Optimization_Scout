@@ -24,16 +24,27 @@ def query_gemini(user_query: str, system_prompt: str) -> str:
     genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
     model = genai.GenerativeModel(
-        model_name="gemini-1.5-pro",
+        model_name="gemini-1.5-pro-latest",
         system_instruction=system_prompt,
     )
 
-    response = model.generate_content(
-        user_query,
-        generation_config=genai.types.GenerationConfig(
-            max_output_tokens=600,
-            temperature=0.7,
-        ),
-    )
+    try:
+        response = model.generate_content(
+            user_query,
+            generation_config=genai.types.GenerationConfig(
+                max_output_tokens=600,
+                temperature=0.7,
+            ),
+        )
+        
+        # Check if the response was blocked by safety filters
+        if response.candidates:
+            return response.text
+        else:
+            return "Response blocked by safety filters or empty."
+            
+    except Exception as e:
+        # Re-raise or handle specific API errors
+        print(f"API Error: {e}")
+        raise
 
-    return response.text
