@@ -7,6 +7,8 @@ import google.generativeai as genai
 import os
 
 
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"), transport='rest')
+
 def query_gemini(user_query: str, system_prompt: str) -> str:
     """
     Query Gemini 1.5 Pro with a shopper's product question.
@@ -21,7 +23,6 @@ def query_gemini(user_query: str, system_prompt: str) -> str:
     Raises:
         google.api_core.exceptions.GoogleAPIError: On API failures
     """
-    genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
     model = genai.GenerativeModel(
         model_name="gemini-1.5-pro-latest",
