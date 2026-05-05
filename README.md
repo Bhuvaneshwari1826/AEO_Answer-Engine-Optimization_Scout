@@ -224,7 +224,7 @@ AEO Scout gives sellers their first visibility report card across the AI search 
 
 ---
 
-## 🗺️ Roadmap (if more time)
+## 🗺️ Roadmap (further improvements)
 
 - [ ] **Weekly tracking** — run the same query every 7 days, show score trend over time
 - [ ] **ASIN import** — paste an Amazon URL, auto-extract brand + competitor names
